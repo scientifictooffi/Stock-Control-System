@@ -1,73 +1,100 @@
-from datetime import date
+import sys
+from coffee_maker import CoffeeMaker
 
-from stock_control.storage import StockStore
-from stock_control import product_service as ps
-from stock_control import inventory_service as inv
-from stock_control import purchasing_service as pur
-from stock_control import report_service as rep
-
-
-def ask(prompt, cast=str, default=None):
-    raw = input(f"{prompt}{f' [{default}]' if default is not None else ''}: ").strip()
-    if raw == "" and default is not None:
-        return default
-    return cast(raw)
-
-
-def today():
-    return date.today().isoformat()
-
-
-def run(action):
+ # Passes a prompt to the user and returns the user specified string.
+def input_output(message):
+    print(message)
     try:
-        result = action()
-        if result is not None:
-            print("->", result)
-    except NotImplementedError:
-        print("(not implemented yet)")
-    except (ValueError, KeyError, TypeError) as e:
-        print("Error:", e)
+        return_value = int(input())
+        return return_value
+    except ValueError:
+        print("Error reading in integer value")
+        main_menu()
+    except Exception:
+        print("Error reading in value")
+        main_menu()
 
+# Add inventory user interface that processes input.
+def add_ingredients():
+    coffee = input_output("\nPlease enter the units of coffee to add: ")
+    milk = input_output("\nPlease enter the units of milk to add: ")
 
-def menu(store):
-    options = {
-        "1": ("Add product", lambda: ps.add_product(
-            store, ask("SKU"), ask("Name"), ask("Category"),
-            ask("Unit cost", float), ask("Selling price", float), ask("Reorder level", int, 0))),
-        "2": ("Search products", lambda: ps.search_products(store, ask("Keyword", str, ""))),
-        "3": ("Receive stock", lambda: inv.receive_stock(
-            store, ask("SKU"), ask("Quantity", int), ask("Batch ID"), today(),
-            ask("Expiry date (YYYY-MM-DD, blank for none)", str, "") or None)),
-        "4": ("Issue stock", lambda: inv.issue_stock(store, ask("SKU"), ask("Quantity", int), today())),
-        "5": ("Adjust stock after count", lambda: inv.adjust_stock(
-            store, ask("SKU"), ask("Counted quantity", int), ask("Reason", str, "COUNT"), today())),
-        "6": ("Add supplier", lambda: pur.add_supplier(
-            store, ask("Name"), ask("Email"), ask("Phone"), ask("Lead time (days)", int))),
-        "7": ("Generate purchase orders", lambda: pur.generate_purchase_orders(store, today())),
-        "8": ("Approve purchase order", lambda: pur.approve_purchase_order(
-            store, ask("PO ID"), ask("Your role (CLERK/MANAGER/DIRECTOR)"))),
-        "9": ("Low-stock alerts", lambda: rep.get_low_stock_alerts(store)),
-        "10": ("Stock value", lambda: rep.calculate_stock_value(store, ask("Method", str, "COST"))),
-        "11": ("Expiring batches", lambda: inv.check_expiring_batches(store, today())),
-        "12": ("Audit records", lambda: rep.audit_stock_records(store)),
-        "0": ("Save and exit", None),
-    }
-    while True:
-        print("\n=== Stock Control System ===")
-        for key, (label, _) in options.items():
-            print(f"{key:>3}. {label}")
-        choice = input("Choose: ").strip()
-        if choice == "0":
-            store.save()
-            print("Saved. Goodbye.")
-            return
-        if choice in options:
-            run(options[choice][1])
+    try:
+        coffee_maker.add_ingredients(coffee, milk)
+        print("Ingredients successfully added")
+    except Exception:
+        print("Inventory was not added")
+    finally:
+        main_menu()
+
+# Check ingredients user interface that processes input.
+def check_ingredients():
+    print(coffee_maker.check_ingredients())
+    main_menu()
+
+ # Make coffee user interface the processes input.
+def make_coffee():
+    print("1. Espresso")
+    print("2. Latte")
+
+    item = input_output("Please enter the item you wish to purchase")
+    amt_paid = input_output("Please enter the amount you are paying")
+
+    if 1 <= item <= 2:
+        change = 0
+        if item == 1:
+            change = coffee_maker.make_espresso(amt_paid)
+        elif item == 2:
+            change = coffee_maker.make_latte(amt_paid)
+
+        if change == amt_paid:
+            print("Insufficient funds to purchase.")
         else:
-            print("Invalid choice.")
+            print("Thanks for purchasing")
+        print(f"Your change is: {change}\n")
+        main_menu()
+    else:
+        print("Please enter a number from 1 - 2")
+        main_menu()
 
+# Prints the main menu and handles user input for main menu commands.
+def cleanup():
+    coffee_maker.cleanup()
+    print("Thanks for cleaning up the machine")
+    main_menu()
+
+# Prints the main menu and handles user input for main menu commands.
+def main_menu():
+    print("1. Make Coffee")
+    print("2. Cleanup")
+    print("3. Add ingredients")
+    print("4. Display ingredients")
+    print("0. Exit\n")
+
+    user_input = input_output("Please press the number that corresponds to what you would like the coffee maker to do.")
+
+    if 0 <= user_input <= 4:
+        if user_input == 1:
+            make_coffee()
+        elif user_input == 2:
+            cleanup()
+        elif user_input == 3:
+            add_ingredients()
+        elif user_input == 4:
+            check_ingredients()
+        elif user_input == 0:
+            sys.exit(0)
+    else:
+        print("Please enter a number from 0 - 4")
+        main_menu()
+
+def main():
+    print("Welcome to the CoffeeMaker!\n")
+    main_menu()
 
 if __name__ == "__main__":
-    s = StockStore()
-    s.load()
-    menu(s)
+    coffee_maker = CoffeeMaker()
+    main()
+
+
+#this is test
