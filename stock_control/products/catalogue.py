@@ -1,4 +1,15 @@
+import re
+
+from stock_control.models import Product
 from stock_control.store import Store
+
+SKU_PATTERN = re.compile(r"^[A-Z]{3}-[0-9]{4}$")
+
+
+def _is_valid_sku(sku):
+    if not isinstance(sku, str):
+        return False
+    return SKU_PATTERN.match(sku) is not None
 
 
 def add_product(
@@ -7,13 +18,30 @@ def add_product(
     so that we can start selling it.
 
     Rules:
-        1. SKU is in the right format and not already used
+        1. SKU is in the right format (ABC-0001) and not already used
         2. Name is filled in
         3. Price is more than 0
         4. Starting quantity is 0 or more
         5. Category must exist
+
+    Returns the created Product. Raises ValueError when a rule fails.
     """
-    raise NotImplementedError("P1 add_product is not implemented yet")
+    if not _is_valid_sku(sku):
+        raise ValueError("invalid SKU format, expected ABC-0001")
+    if sku in store.products:
+        raise ValueError(f"SKU {sku} already exists")
+    if not isinstance(name, str) or name.strip() == "":
+        raise ValueError("name is required")
+    if price <= 0:
+        raise ValueError("price must be more than 0")
+    if quantity < 0:
+        raise ValueError("starting quantity cannot be negative")
+    if category not in store.categories:
+        raise ValueError(f"category {category} does not exist")
+    product = Product(sku=sku, name=name.strip(), category=category,
+                      price=price, cost=cost, quantity=quantity)
+    store.products[sku] = product
+    return product
 
 
 def update_product(store, sku, changes, user=''):
