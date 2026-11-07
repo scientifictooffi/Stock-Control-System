@@ -4,12 +4,44 @@ from stock_control.models import Product
 from stock_control.store import Store
 
 SKU_PATTERN = re.compile(r"^[A-Z]{3}-[0-9]{4}$")
+EDITABLE_FIELDS = ("sku", "name", "category", "price", "cost")
 
 
 def _is_valid_sku(sku):
     if not isinstance(sku, str):
         return False
     return SKU_PATTERN.match(sku) is not None
+
+
+def _has_stock_history(store, sku):
+    return any(movement.sku == sku for movement in store.movements)
+
+
+def _check_change(store, product, field, value):
+    if field == "sku":
+        if _has_stock_history(store, product.sku):
+            raise ValueError("SKU cannot change once the product has "
+                             "stock history")
+        if not _is_valid_sku(value):
+            raise ValueError("invalid SKU format, expected ABC-0001")
+        if value in store.products:
+            raise ValueError(f"SKU {value} already exists")
+        return value
+    if field == "name":
+        if not isinstance(value, str) or value.strip() == "":
+            raise ValueError("name is required")
+        return value.strip()
+    if field == "category":
+        if value not in store.categories:
+            raise ValueError(f"category {value} does not exist")
+        return value
+    if field == "price":
+        if value <= 0:
+            raise ValueError("price must be more than 0")
+        return value
+    if value < 0:
+        raise ValueError("cost cannot be negative")
+    return value
 
 
 def add_product(
@@ -54,7 +86,24 @@ def update_product(store, sku, changes, user=''):
         3. SKU cannot change once the product has stock history
         4. Archived products cannot be edited
     """
-    raise NotImplementedError("P2 update_product is not implemented yet")
+    if sku not in store.products:
+        raise ValueError(f"product {sku} does not exist")
+    product = store.products[sku]
+    if product.status == "archived":
+        raise ValueError("archived products cannot be edited")
+    if not changes:
+        raise ValueError("no changes given")
+    cleaned = {}
+    for field, value in changes.items():
+        if field not in EDITABLE_FIELDS:
+            raise ValueError(f"field {field} cannot be edited")
+        cleaned[field] = _check_change(store, product, field, value)
+    for field, value in cleaned.items():
+        setattr(product, field, value)
+    if "sku" in cleaned:
+        del store.products[sku]
+        store.products[product.sku] = product
+    return product
 
 
 def remove_product(store, sku, user=''):

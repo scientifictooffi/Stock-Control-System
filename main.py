@@ -45,8 +45,11 @@ def p1_add_product(store):
 
 
 def p2_update_product(store):
+    sku = ask("SKU")
+    field = ask("Field (sku, name, category, price, cost)")
+    kind = float if field in ("price", "cost") else str
     return catalogue.update_product(
-        store, ask("SKU"), {ask("Field"): ask("New value")})
+        store, sku, {field: ask("New value", kind)})
 
 
 def p3_remove_product(store):
