@@ -95,7 +95,8 @@ def m1_receive_stock(store):
 
 def m2_issue_stock(store):
     return issuing.issue_stock(
-        store, ask("SKU"), ask("Quantity", int), ask("Warehouse"), today())
+        store, ask("SKU"), ask("Quantity", int), ask("Warehouse"), today(),
+        ask("Allow part order? (y/n)", str, "n").lower() == "y")
 
 
 def m3_adjust_stock(store):
