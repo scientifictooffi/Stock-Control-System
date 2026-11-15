@@ -24,35 +24,35 @@ def make_store():
 
 class TestIssueStockSymbolicExecution(unittest.TestCase):
 
-    def test_leaf_l1_pc_sku_not_in_products(self):
+    def test_leaf_l1_pc_unknown_sku(self):
         with self.assertRaises(KeyError):
             issue_stock(make_store(), "XYZ-9999", 1, "MAIN", "2026-11-11")
 
-    def test_leaf_l2_pc_quantity_not_positive_int(self):
+    def test_leaf_l2_pc_bad_quantity(self):
         with self.assertRaises(ValueError):
             issue_stock(make_store(), "PIP-0001", 0, "MAIN", "2026-11-11")
 
-    def test_leaf_l3_pc_warehouse_missing(self):
+    def test_leaf_l3_pc_unknown_warehouse(self):
         with self.assertRaises(ValueError):
             issue_stock(make_store(), "PIP-0001", 1, "EAST", "2026-11-11")
 
-    def test_leaf_l4_pc_not_enough_and_no_part_order(self):
+    def test_leaf_l4_pc_not_enough_stock(self):
         with self.assertRaises(ValueError):
             issue_stock(make_store(), "PIP-0001", 11, "MAIN", "2026-11-11")
 
-    def test_leaf_l5_pc_part_order_but_no_stock(self):
+    def test_leaf_l5_pc_no_stock(self):
         with self.assertRaises(ValueError):
             issue_stock(make_store(), "PIP-0001", 1, "NORTH", "2026-11-11",
                         True)
 
-    def test_leaf_l6_pc_full_issue_from_batches(self):
+    def test_leaf_l6_pc_all_rules_hold(self):
         store = make_store()
         self.assertEqual(
             5, issue_stock(store, "PIP-0001", 5, "MAIN", "2026-11-11"))
         self.assertEqual(0, store.batches[1].quantity)
         self.assertEqual(4, store.batches[0].quantity)
 
-    def test_leaf_l7_pc_full_issue_needs_unbatched_stock(self):
+    def test_leaf_l7_pc_needs_unbatched_stock(self):
         store = make_store()
         self.assertEqual(
             10, issue_stock(store, "PIP-0001", 10, "MAIN", "2026-11-11"))

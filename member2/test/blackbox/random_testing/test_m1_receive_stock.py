@@ -63,7 +63,7 @@ def expected_outcome(store, sku, quantity, warehouse, day, use_by):
 
 class TestReceiveStockRandom(unittest.TestCase):
 
-    def test_random_inputs_match_the_rules(self):
+    def test_random_inputs_follow_the_rules(self):
         rng = random.Random(SEED)
         store = make_store()
         accepted = refused = 0
