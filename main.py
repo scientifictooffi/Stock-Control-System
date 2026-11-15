@@ -101,8 +101,10 @@ def m2_issue_stock(store):
 
 def m3_adjust_stock(store):
     return adjustments.adjust_stock(
-        store, ask("SKU"), ask("Change (+/-)", int), ask("Reason"),
-        ask("Warehouse"), today())
+        store, ask("SKU"), ask("Change (+/-)", int),
+        ask("Reason (damaged/lost/count error)").lower(),
+        ask("Warehouse"), today(),
+        ask("Approved by (manager username, blank if none)", str, "") or None)
 
 
 def m4_transfer_stock(store):

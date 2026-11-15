@@ -74,7 +74,7 @@ def expected_batches(store, sku, warehouse, amount):
 
 class TestIssueStockRandom(unittest.TestCase):
 
-    def test_random_requests_follow_the_rules(self):
+    def test_random_inputs_follow_the_rules(self):
         rng = random.Random(SEED)
         accepted = refused = 0
         for run in range(RUNS):

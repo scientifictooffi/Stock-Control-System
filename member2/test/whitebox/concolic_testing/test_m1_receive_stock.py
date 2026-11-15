@@ -53,7 +53,7 @@ class TestReceiveStockConcolic(unittest.TestCase):
         with self.assertRaises(ValueError):
             receive_stock(make_store(), "OLD-0001", 5, "MAIN", "2026-11-07")
 
-    def test_iteration_8_negate_d1_sku_missing(self):
+    def test_iteration_8_negate_d1_product(self):
         with self.assertRaises(KeyError):
             receive_stock(make_store(), "TAP-0001", 5, "MAIN", "2026-11-07")
 

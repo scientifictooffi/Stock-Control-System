@@ -11,28 +11,28 @@ class TestQuantityBoundary(unittest.TestCase):
     def stock_left(self):
         return self.store.products[SKU].stock_by_warehouse["MAIN"]
 
-    def test_quantity_zero_refused(self):
+    def test_quantity_zero_is_rejected(self):
         with self.assertRaises(ValueError):
             issue_stock(self.store, SKU, 0, "MAIN", TODAY)
 
-    def test_quantity_one_accepted(self):
+    def test_quantity_one_is_accepted(self):
         self.assertEqual(issue_stock(self.store, SKU, 1, "MAIN", TODAY), 1)
 
-    def test_quantity_stock_minus_one_accepted(self):
+    def test_quantity_stock_minus_one_is_accepted(self):
         issue_stock(self.store, SKU, MAIN_QTY - 1, "MAIN", TODAY)
         self.assertEqual(self.stock_left(), 1)
 
-    def test_quantity_equal_to_stock_leaves_zero(self):
+    def test_quantity_equal_to_stock_is_accepted(self):
         issue_stock(self.store, SKU, MAIN_QTY, "MAIN", TODAY)
         self.assertEqual(self.stock_left(), 0)
 
-    def test_quantity_stock_plus_one_refused(self):
+    def test_quantity_stock_plus_one_is_rejected(self):
         before = snapshot(self.store)
         with self.assertRaises(ValueError):
             issue_stock(self.store, SKU, MAIN_QTY + 1, "MAIN", TODAY)
         self.assertEqual(self.store, before)
 
-    def test_quantity_stock_plus_one_part_order_issues_stock(self):
+    def test_quantity_stock_plus_one_part_order_is_accepted(self):
         self.assertEqual(
             issue_stock(self.store, SKU, MAIN_QTY + 1, "MAIN", TODAY, True),
             MAIN_QTY)
@@ -43,21 +43,21 @@ class TestBatchBoundary(unittest.TestCase):
     def setUp(self):
         self.store = make_store()
 
-    def test_exactly_first_batch_empties_it_only(self):
+    def test_quantity_equal_to_first_batch_empties_it(self):
         issue_stock(self.store, SKU, 3, "MAIN", TODAY)
         self.assertEqual(batch(self.store, "B0002").quantity, 0)
         self.assertEqual(batch(self.store, "B0001").quantity, 4)
 
-    def test_one_more_than_first_batch_moves_to_next(self):
+    def test_quantity_first_batch_plus_one_uses_next_batch(self):
         issue_stock(self.store, SKU, 4, "MAIN", TODAY)
         self.assertEqual(batch(self.store, "B0002").quantity, 0)
         self.assertEqual(batch(self.store, "B0001").quantity, 3)
 
-    def test_all_batched_stock_uses_no_unbatched_stock(self):
+    def test_quantity_equal_to_batched_stock_uses_batches_only(self):
         issue_stock(self.store, SKU, 9, "MAIN", TODAY)
         self.assertNotIn("no batch", self.store.movements[-1].reason)
 
-    def test_one_more_than_batched_stock_uses_unbatched_stock(self):
+    def test_quantity_batched_plus_one_uses_unbatched_stock(self):
         issue_stock(self.store, SKU, 10, "MAIN", TODAY)
         self.assertIn("no batch:1", self.store.movements[-1].reason)
 

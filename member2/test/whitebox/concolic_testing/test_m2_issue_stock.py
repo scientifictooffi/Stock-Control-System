@@ -61,7 +61,7 @@ class TestIssueStockConcolic(unittest.TestCase):
             issue_stock(make_store(), "TAP-0001", 0, "EAST", "2026-11-11",
                         True)
 
-    def test_iteration_8_negate_d1_sku_missing(self):
+    def test_iteration_8_negate_d1_product(self):
         with self.assertRaises(KeyError):
             issue_stock(make_store(), "XYZ-9999", 0, "EAST", "2026-11-11",
                         True)
