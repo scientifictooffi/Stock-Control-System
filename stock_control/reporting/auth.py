@@ -40,6 +40,22 @@ def login(store, username, password):
     return user
 
 
+ACTIONS = {
+    "search_products", "add_product", "edit_product", "remove_product",
+    "change_price", "manage_category", "set_stock_levels", "import_products",
+    "receive_stock", "issue_stock", "adjust_stock", "transfer_stock",
+    "stocktake", "reserve_stock", "process_return", "view_history",
+    "manage_suppliers", "create_order", "approve_order",
+    "view_reports", "view_audit_log", "manage_users", "save_data",
+}
+
+ROLE_PERMISSIONS = {
+    "manager": ACTIONS - {"manage_users"},
+    "clerk": {"search_products", "issue_stock", "reserve_stock",
+              "process_return", "view_reports"},
+}
+
+
 def check_permission(store, username, action):
     """R2 (Member 4): As David, I want each role to have its own permissions so
     that counter staff cannot change prices.
@@ -49,5 +65,23 @@ def check_permission(store, username, action):
         2. Each action checked against the role
         3. Unknown role or action is refused
         4. Admin can do everything
+
+    Returns True if the user's role allows the action, False if not.
+    Raises ValueError for an unknown user, action or role.
     """
-    raise NotImplementedError("R2 check_permission is not implemented yet")
+    user = store.users.get(username)
+    if user is None:
+        raise ValueError(f"user {username} does not exist")
+    # Rule 3: unknown action is refused
+    if action not in ACTIONS:
+        raise ValueError(f"unknown action {action}")
+    # Rule 4: admin can do everything
+    if user.role == "admin":
+        return True
+    # Rule 3: unknown role is refused
+    if user.role not in ROLE_PERMISSIONS:
+        raise ValueError(f"unknown role {user.role}")
+    # Rule 2: each action is checked against the role
+    if action in ROLE_PERMISSIONS[user.role]:
+        return True
+    return False
