@@ -5,6 +5,7 @@ from stock_control.store import Store
 
 SKU_PATTERN = re.compile(r"^[A-Z]{3}-[0-9]{4}$")
 EDITABLE_FIELDS = ("sku", "name", "category", "price", "cost")
+CLOSED_ORDER_STATUSES = ("received", "cancelled", "closed")
 
 
 def _is_valid_sku(sku):
@@ -15,6 +16,15 @@ def _is_valid_sku(sku):
 
 def _has_stock_history(store, sku):
     return any(movement.sku == sku for movement in store.movements)
+
+
+def _is_on_open_order(store, sku):
+    for order in store.purchase_orders.values():
+        if order.status in CLOSED_ORDER_STATUSES:
+            continue
+        if any(line.sku == sku for line in order.lines):
+            return True
+    return False
 
 
 def _check_change(store, product, field, value):
@@ -115,4 +125,13 @@ def remove_product(store, sku, user=''):
         2. Otherwise archive it
         3. Not allowed if it is on an open order
     """
-    raise NotImplementedError("P3 remove_product is not implemented yet")
+    if sku not in store.products:
+        raise ValueError(f"product {sku} does not exist")
+    if _is_on_open_order(store, sku):
+        raise ValueError(f"product {sku} is on an open purchase order")
+    product = store.products[sku]
+    if product.quantity == 0 and not _has_stock_history(store, sku):
+        del store.products[sku]
+        return "deleted"
+    product.status = "archived"
+    return "archived"
