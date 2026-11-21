@@ -1,5 +1,6 @@
 from datetime import date
 
+from stock_control.seed import seed_demo_data
 from stock_control.store import Store
 from stock_control.products import (
     catalogue, search, categories, levels, pricing, importer, units)
@@ -265,10 +266,11 @@ MENU = [
 
 def load_store():
     try:
-        return storage.load_data(DATA_FILE) or Store()
+        store = storage.load_data(DATA_FILE) or Store()
     except NotImplementedError:
         print("(storage not implemented yet - running in memory)")
-        return Store()
+        store = Store()
+    return seed_demo_data(store)
 
 
 def main():
