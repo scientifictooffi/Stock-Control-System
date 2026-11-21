@@ -1,8 +1,7 @@
 # Stock Control System (CO7095 Group Project)
 
-Backend stock control system for a small building-supplies business
-(Midlands Trade Supplies case study). Python only, text menu, JSON file
-storage. No GUI, no database.
+Backend stock control system for a small building-supplies business.
+Python only, text menu, JSON file storage. No GUI, no database.
 
 Repository: https://github.com/scientifictooffi/Stock-Control-System
 
@@ -26,6 +25,18 @@ Right-click `main.py` → **Run 'main'**, or in the terminal:
 python main.py
 ```
 The menu lists all 36 user stories (P1–P9, M1–M9, S1–S9, R1–R9). Data is saved to `data/stock.json`.
+
+On first start the store is empty, so `stock_control/seed.py` loads a small
+demo data set: three users, two warehouses, five categories and six products.
+Seeding is skipped as soon as the saved file already contains users.
+
+| Username | Password | Role |
+|---|---|---|
+| `admin` | `admin123` | admin |
+| `manager` | `manager123` | manager |
+| `clerk` | `clerk123` | clerk |
+
+Warehouses: `MAIN`, `NORTH`. Categories: Plumbing, Electrical, Timber, Tools, Fixings.
 
 ## 4. Run the tests
 Tests use the standard `unittest` module. Each member has a package
