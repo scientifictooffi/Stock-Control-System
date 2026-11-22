@@ -6,7 +6,7 @@ AVAILABILITY = ("in_stock", "low", "out")
 def _availability(product):
     if product.quantity <= 0:
         return "out"
-    if product.quantity <= product.min_level:
+    if product.quantity < product.min_level:
         return "low"
     return "in_stock"
 

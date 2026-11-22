@@ -70,22 +70,22 @@ class TestSearchProductsBoundaryValues(unittest.TestCase):
                          names(search_products(make_store(),
                                                availability="out")))
 
-    def test_quantity_one_with_min_level_one_is_low(self):
+    def test_quantity_one_below_min_level_is_low(self):
         store = make_store()
-        store.products["DRL-0001"].quantity = 1
-        self.assertIn("Cordless drill",
+        store.products["TAP-0001"].quantity = 4
+        self.assertIn("Brass tap",
                       names(search_products(store, availability="low")))
 
-    def test_quantity_equal_to_min_level_is_low(self):
+    def test_quantity_equal_to_min_level_is_in_stock(self):
         store = make_store()
         store.products["TAP-0001"].quantity = 5
         self.assertIn("Brass tap",
-                      names(search_products(store, availability="low")))
+                      names(search_products(store, availability="in_stock")))
 
-    def test_quantity_one_above_min_level_is_in_stock(self):
+    def test_quantity_one_with_min_level_one_is_in_stock(self):
         store = make_store()
-        store.products["TAP-0001"].quantity = 6
-        self.assertIn("Brass tap",
+        store.products["DRL-0001"].quantity = 1
+        self.assertIn("Cordless drill",
                       names(search_products(store, availability="in_stock")))
 
     def test_one_character_name(self):

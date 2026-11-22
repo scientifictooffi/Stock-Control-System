@@ -59,7 +59,7 @@ def oracle(store, name, category, lo, hi, availability):
         if hi is not None and p.price > hi:
             continue
         state = ("out" if p.quantity <= 0
-                 else "low" if p.quantity <= p.min_level else "in_stock")
+                 else "low" if p.quantity < p.min_level else "in_stock")
         if availability is not None and state != availability:
             continue
         result.append(p.name)

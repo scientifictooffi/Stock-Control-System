@@ -18,6 +18,8 @@ loop over PRODUCTS (one unrolled iteration):
   D10: MIN given and price < MIN          T -> skip
   D11: MAX given and price > MAX          T -> skip
   D12: AVAIL given and state != AVAIL     T -> skip
+       (state: out if qty <= 0, low if qty < min_level, else in_stock,
+        same rule as R3 stock_level_report)
   all F -> append
 D13: FOUND empty                          T -> L7 raise LookupError
                                           F -> L8 return sorted(FOUND)
