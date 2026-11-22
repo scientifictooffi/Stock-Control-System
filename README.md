@@ -44,9 +44,9 @@ Tests use the standard `unittest` module. Each member has a package
 
 | What | Command (run from the project root) |
 |---|---|
-| Everything | `python -m unittest discover -t . -s member1` (repeat for each member) |
-| One technique | `python -m unittest discover -t . -s member1/test/blackbox/equivalence_partitioning` |
-| Coverage for one technique | `coverage run -m unittest discover -t . -s member1/test/whitebox/branch_coverage` then `coverage report -m` |
+| Everything | `python -m unittest discover -t . -s ya148` (repeat for each member) |
+| One technique | `python -m unittest discover -t . -s ya148/test/blackbox/equivalence_partitioning` |
+| Coverage for one technique | `coverage run -m unittest discover -t . -s ya148/test/whitebox/branch_coverage` then `coverage report -m` |
 | HTML coverage | `coverage html` → open `htmlcov/index.html` |
 
 ## 5. Project layout
@@ -59,7 +59,7 @@ stock_control/
   movements/   (Member 2)       receiving, issuing, adjustments, transfers, stocktake, batches, reservations, returns, history
   purchasing/  (Member 3)       suppliers, orders, approval, receiving, alerts, reorder, selection, performance
   reporting/   (Member 4)       auth, reports, valuation, analysis, audit, storage
-member1/ … member4/test/        black-box and white-box test packages per member
+ya148/ … member4/test/        black-box and white-box test packages per member
 docs/                           sprint calendar and planning evidence
 data/                           stock.json is created on first save
 ```
@@ -69,4 +69,4 @@ data/                           stock.json is created on first save
 - Each function's docstring lists its **Rules**; those are the specification for all black-box tests.
 - Keep logic functions pure: no `input()`/`print()` inside `stock_control/`.
 - PEP 8 (PyCharm inspections must be clean before opening a PR).
-- Before submission rename `member1`–`member4` to the real student user IDs.
+- Before submission rename `ya148`–`member4` to the real student user IDs.
