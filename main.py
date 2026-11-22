@@ -35,7 +35,8 @@ def run(action):
             print("->", result)
     except NotImplementedError as exc:
         print("(not implemented yet:", exc, ")")
-    except (ValueError, KeyError, PermissionError, FileNotFoundError) as exc:
+    except (ValueError, LookupError, PermissionError,
+            FileNotFoundError) as exc:
         print("Error:", exc)
 
 
@@ -58,7 +59,17 @@ def p3_remove_product(store):
 
 
 def p4_search_products(store):
-    return search.search_products(store, ask("Name contains", str, ""))
+    name = ask("Name contains", str, "")
+    category = ask("Category (blank for any)", str, "") or None
+    min_price = ask("Min price (blank for none)", str, "") or None
+    max_price = ask("Max price (blank for none)", str, "") or None
+    availability = ask("Availability in_stock/low/out (blank for any)",
+                       str, "") or None
+    found = search.search_products(
+        store, name, category,
+        float(min_price) if min_price else None,
+        float(max_price) if max_price else None, availability)
+    return [f"{p.sku} {p.name} {p.price} qty={p.quantity}" for p in found]
 
 
 def p5_manage_category(store):

@@ -1,0 +1,33 @@
+# Category Partition specification for
+# stock_control/products/search.py::search_products (P4)
+# Run: TSLgenerator -s p4_search_products.tsl
+
+Parameters:
+  Name:
+    empty.
+    part of a product name.
+    no product contains it.      [single]
+    not a string.                [error]
+
+  Category:
+    not given.
+    existing category.
+    unknown category.            [error]
+
+  Price range:
+    not given.
+    min only.                    [single]
+    max only.                    [single]
+    min and max, min <= max.
+    min above max.               [error]
+    negative price.              [error]
+
+  Availability:
+    not given.
+    in_stock.
+    low.                         [single]
+    out.
+
+Environment:
+  Store:
+    active and archived products present.

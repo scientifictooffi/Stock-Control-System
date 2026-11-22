@@ -1,0 +1,234 @@
+
+----------------------------------------
+  TSLgenerator
+
+  (C) University of California Irvine,
+      and Oregon State University, 2001
+----------------------------------------
+
+Test Case 1  		<single>
+   Name :  no product contains it
+
+
+Test Case 2  		<error>
+   Name :  not a string
+
+
+Test Case 3  		<error>
+   Category :  unknown category
+
+
+Test Case 4  		<single>
+   Price range :  min only
+
+
+Test Case 5  		<single>
+   Price range :  max only
+
+
+Test Case 6  		<error>
+   Price range :  min above max
+
+
+Test Case 7  		<error>
+   Price range :  negative price
+
+
+Test Case 8  		<single>
+   Availability :  low
+
+
+Test Case 9  		(Key = 1.1.1.1.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  not given
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 10 		(Key = 1.1.1.2.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  not given
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 11 		(Key = 1.1.1.4.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  not given
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 12 		(Key = 1.1.4.1.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 13 		(Key = 1.1.4.2.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 14 		(Key = 1.1.4.4.1.)
+   Name         :  empty
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 15 		(Key = 1.2.1.1.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 16 		(Key = 1.2.1.2.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 17 		(Key = 1.2.1.4.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 18 		(Key = 1.2.4.1.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 19 		(Key = 1.2.4.2.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 20 		(Key = 1.2.4.4.1.)
+   Name         :  empty
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 21 		(Key = 2.1.1.1.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  not given
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 22 		(Key = 2.1.1.2.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  not given
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 23 		(Key = 2.1.1.4.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  not given
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 24 		(Key = 2.1.4.1.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 25 		(Key = 2.1.4.2.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 26 		(Key = 2.1.4.4.1.)
+   Name         :  part of a product name
+   Category     :  not given
+   Price range  :  min and max, min <= max
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 27 		(Key = 2.2.1.1.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 28 		(Key = 2.2.1.2.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 29 		(Key = 2.2.1.4.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  not given
+   Availability :  out
+   Store        :  active and archived products present
+
+
+Test Case 30 		(Key = 2.2.4.1.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  not given
+   Store        :  active and archived products present
+
+
+Test Case 31 		(Key = 2.2.4.2.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  in_stock
+   Store        :  active and archived products present
+
+
+Test Case 32 		(Key = 2.2.4.4.1.)
+   Name         :  part of a product name
+   Category     :  existing category
+   Price range  :  min and max, min <= max
+   Availability :  out
+   Store        :  active and archived products present
+
+
+	32 test frames generated and written to the standard output
+
