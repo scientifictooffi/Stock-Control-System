@@ -11,7 +11,7 @@ from stock_control.purchasing import (
     suppliers, orders, approval, alerts, reorder, selection, performance)
 from stock_control.purchasing import receiving as po_receiving
 from stock_control.reporting import (
-    auth, reports, valuation, analysis, audit, storage)
+    auth, reports, valuation, analysis, audit, storage, passwords)
 
 DATA_FILE = "data/stock.json"
 
@@ -197,7 +197,9 @@ def s9_rate_supplier(store):
 
 
 def r1_login(store):
-    return auth.login(store, ask("Username"), ask("Password"))
+    username = ask("Username")
+    password = passwords.hash_for_user(store, username, ask("Password"))
+    return auth.login(store, username, password)
 
 
 def r2_check_permission(store):
