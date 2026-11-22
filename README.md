@@ -59,7 +59,7 @@ stock_control/
   movements/   (Member 2)       receiving, issuing, adjustments, transfers, stocktake, batches, reservations, returns, history
   purchasing/  (Member 3)       suppliers, orders, approval, receiving, alerts, reorder, selection, performance
   reporting/   (Member 4)       auth, reports, valuation, analysis, audit, storage
-ya148/ … member4/test/        black-box and white-box test packages per member
+ya148/ … aaa192/test/        black-box and white-box test packages per member
 docs/                           sprint calendar and planning evidence
 data/                           stock.json is created on first save
 ```
@@ -69,4 +69,4 @@ data/                           stock.json is created on first save
 - Each function's docstring lists its **Rules**; those are the specification for all black-box tests.
 - Keep logic functions pure: no `input()`/`print()` inside `stock_control/`.
 - PEP 8 (PyCharm inspections must be clean before opening a PR).
-- Before submission rename `ya148`–`member4` to the real student user IDs.
+- Before submission rename `ya148`–`aaa192` to the real student user IDs.
