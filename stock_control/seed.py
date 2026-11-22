@@ -1,4 +1,5 @@
 from stock_control.models import Category, Product, User, Warehouse
+from stock_control.reporting.passwords import hash_password
 from stock_control.store import Store
 
 DEMO_USERS = (
@@ -23,7 +24,7 @@ def seed_demo_data(store):
     if store.users:
         return store
     for username, password, role in DEMO_USERS:
-        store.users[username] = User(username, password, role)
+        store.users[username] = User(username, hash_password(password), role)
     for code, name in DEMO_WAREHOUSES:
         store.warehouses[code] = Warehouse(code, name)
     for name in DEMO_CATEGORIES:
