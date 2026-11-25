@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from member3.test.s2_fixtures import (
+from ab1409.test.s2_fixtures import (
     ACME, ARCHIVED_SKU, DELTA, PIPE_SKU, SUSPENDED_ID, TAP_SKU, UNKNOWN_ID,
     UNKNOWN_SKU, make_store, snapshot)
 from stock_control.purchasing.suppliers import link_product_supplier

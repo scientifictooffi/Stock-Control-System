@@ -2,7 +2,7 @@ import random
 import re
 import unittest
 
-from member3.test.s1_fixtures import (
+from ab1409.test.s1_fixtures import (
     ACTIVE_ID, SUSPENDED_ID, UNKNOWN_ID, make_store, snapshot)
 from stock_control.purchasing.suppliers import save_supplier
 

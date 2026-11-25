@@ -1,5 +1,5 @@
 import unittest
-from member3.test.s1_fixtures import (
+from ab1409.test.s1_fixtures import (
     ACTIVE_NAME, EMAIL, NEW_NAME, make_store, snapshot)
 from stock_control.purchasing.suppliers import save_supplier
 

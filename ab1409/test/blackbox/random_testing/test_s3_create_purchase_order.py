@@ -2,7 +2,7 @@ import random
 import unittest
 from datetime import date, timedelta
 
-from member3.test.s3_fixtures import (
+from ab1409.test.s3_fixtures import (
     ACME, BRICK_SKU, DELTA, PIPE_SKU, SUSPENDED_ID, TAP_SKU, UNKNOWN_ID,
     UNKNOWN_SKU, make_store, snapshot)
 from stock_control.purchasing.orders import create_purchase_order
