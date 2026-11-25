@@ -120,9 +120,15 @@ def m3_adjust_stock(store):
 
 
 def m4_transfer_stock(store):
+    action = ask("Action (create/dispatch/receive/cancel)", str,
+                 "create").lower()
+    if action == "create":
+        return transfers.transfer_stock(
+            store, ask("SKU"), ask("Quantity", int), ask("From warehouse"),
+            ask("To warehouse"), date=today())
     return transfers.transfer_stock(
-        store, ask("SKU"), ask("Quantity", int), ask("From warehouse"),
-        ask("To warehouse"))
+        store, None, None, None, None, action, ask("Transfer ID"),
+        date=today())
 
 
 def m5_reconcile_count(store):

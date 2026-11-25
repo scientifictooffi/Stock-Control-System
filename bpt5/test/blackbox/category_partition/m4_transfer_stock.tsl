@@ -1,0 +1,47 @@
+# Category Partition specification for
+# stock_control/movements/transfers.py::transfer_stock (M4)
+# Run: TSLgenerator -s m4_transfer_stock.tsl
+
+Parameters:
+  Action:
+    create.                          [property Create]
+    dispatch.                        [property Change]
+    receive.                         [property Change]
+    cancel.                          [property Change]
+    unknown action.                  [error]
+
+  Product:
+    existing product.                [if Create]
+    unknown product.                 [if Create] [error]
+    not used.                        [if Change]
+
+  Quantity:
+    below stock.                     [if Create]
+    equal to stock.                  [if Create] [single]
+    above stock.                     [if Create] [error]
+    zero or negative.                [if Create] [error]
+    not a whole number.              [if Create] [error]
+    not used.                        [if Change]
+
+  Warehouses:
+    different and both exist.        [if Create]
+    same warehouse.                  [if Create] [error]
+    from warehouse unknown.          [if Create] [error]
+    to warehouse unknown.            [if Create] [error]
+    not used.                        [if Change]
+
+  Transfer id:
+    existing transfer.               [if Change] [property Exists]
+    unknown transfer.                [if Change] [error]
+    not used.                        [if Create]
+
+  Current status:
+    pending.                         [if Exists]
+    in transit.                      [if Exists]
+    received.                        [if Exists]
+    cancelled.                       [if Exists]
+    not used.                        [if !Exists]
+
+Environment:
+  Store:
+    MAIN and NORTH warehouses, PIP-0001 stocked at both.

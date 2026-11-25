@@ -1,0 +1,180 @@
+
+----------------------------------------
+  TSLgenerator
+
+  (C) University of California Irvine,
+      and Oregon State University, 2001
+----------------------------------------
+
+Test Case 1  		<error>
+   Action :  unknown action
+
+
+Test Case 2  		<error>  (follows [if])
+   Product :  unknown product
+
+
+Test Case 3  		<single>  (follows [if])
+   Quantity :  equal to stock
+
+
+Test Case 4  		<error>  (follows [if])
+   Quantity :  above stock
+
+
+Test Case 5  		<error>  (follows [if])
+   Quantity :  zero or negative
+
+
+Test Case 6  		<error>  (follows [if])
+   Quantity :  not a whole number
+
+
+Test Case 7  		<error>  (follows [if])
+   Warehouses :  same warehouse
+
+
+Test Case 8  		<error>  (follows [if])
+   Warehouses :  from warehouse unknown
+
+
+Test Case 9  		<error>  (follows [if])
+   Warehouses :  to warehouse unknown
+
+
+Test Case 10 		<error>  (follows [if])
+   Transfer id :  unknown transfer
+
+
+Test Case 11 		(Key = 1.1.1.1.3.5.1.)
+   Action         :  create
+   Product        :  existing product
+   Quantity       :  below stock
+   Warehouses     :  different and both exist
+   Transfer id    :  not used
+   Current status :  not used
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 12 		(Key = 2.3.6.5.1.1.1.)
+   Action         :  dispatch
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  pending
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 13 		(Key = 2.3.6.5.1.2.1.)
+   Action         :  dispatch
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  in transit
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 14 		(Key = 2.3.6.5.1.3.1.)
+   Action         :  dispatch
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  received
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 15 		(Key = 2.3.6.5.1.4.1.)
+   Action         :  dispatch
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  cancelled
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 16 		(Key = 3.3.6.5.1.1.1.)
+   Action         :  receive
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  pending
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 17 		(Key = 3.3.6.5.1.2.1.)
+   Action         :  receive
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  in transit
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 18 		(Key = 3.3.6.5.1.3.1.)
+   Action         :  receive
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  received
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 19 		(Key = 3.3.6.5.1.4.1.)
+   Action         :  receive
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  cancelled
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 20 		(Key = 4.3.6.5.1.1.1.)
+   Action         :  cancel
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  pending
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 21 		(Key = 4.3.6.5.1.2.1.)
+   Action         :  cancel
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  in transit
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 22 		(Key = 4.3.6.5.1.3.1.)
+   Action         :  cancel
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  received
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+Test Case 23 		(Key = 4.3.6.5.1.4.1.)
+   Action         :  cancel
+   Product        :  not used
+   Quantity       :  not used
+   Warehouses     :  not used
+   Transfer id    :  existing transfer
+   Current status :  cancelled
+   Store          :  MAIN and NORTH warehouses, PIP-0001 stocked at both
+
+
+	23 test frames generated and written to the standard output
+

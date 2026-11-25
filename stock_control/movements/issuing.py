@@ -1,9 +1,11 @@
 from stock_control.models import Movement
 from stock_control.store import Store
 
+
 def _use_by_order(batch):
     return (batch.use_by_date is None, batch.use_by_date or "",
             batch.received_date)
+
 
 def issue_stock(
         store: Store, sku, quantity, warehouse, date, allow_partial=False,
