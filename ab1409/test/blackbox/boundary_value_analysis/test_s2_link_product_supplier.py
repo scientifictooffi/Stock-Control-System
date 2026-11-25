@@ -1,5 +1,5 @@
 import unittest
-from member3.test.s2_fixtures import (
+from ab1409.test.s2_fixtures import (
     ACME, PIPE_SKU, make_store, make_store_with_preferred, snapshot)
 from stock_control.purchasing.suppliers import link_product_supplier
 

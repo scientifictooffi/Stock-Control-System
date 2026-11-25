@@ -1,5 +1,5 @@
 import unittest
-from member3.test.s3_fixtures import (
+from ab1409.test.s3_fixtures import (
     ACME, DELTA, PIPE_SKU, TAP_SKU, TODAY, make_store, snapshot)
 from stock_control.models import ProductSupplier
 from stock_control.purchasing.orders import create_purchase_order
