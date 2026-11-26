@@ -1,0 +1,8 @@
+# Category Partition specification for S4 approve_order.
+
+S4_APPROVAL
+  ORDER: existing, unknown
+  STATUS: draft, submitted, already_decided
+  VALUE: below_1000, exactly_1000, between_1000_and_5000, exactly_5000, above_5000, negative
+  APPROVER: missing, buyer, manager, admin, inactive_manager, locked_manager
+  DECISION: approve, reject, invalid
