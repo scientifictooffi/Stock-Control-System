@@ -1,0 +1,6 @@
+S5_RECEIVING
+  ORDER_STATUS: sent, partially_received, draft, approved, received
+  RECEIVED_MAP: empty, known_sku, unknown_sku, mixed_known_unknown
+  QUANTITY: zero, negative, fractional, within_order, exactly_105_percent, above_105_percent
+  WAREHOUSE: known, unknown, empty
+  DATE: valid, invalid
