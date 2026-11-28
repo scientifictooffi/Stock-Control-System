@@ -1,7 +1,6 @@
 from datetime import date
 
 from stock_control.seed import seed_demo_data
-from stock_control.store import Store
 from stock_control.products import (
     catalogue, search, categories, levels, pricing, importer, units)
 from stock_control.movements import (
@@ -285,10 +284,11 @@ MENU = [
 
 def load_store():
     try:
-        store = storage.load_data(DATA_FILE) or Store()
-    except NotImplementedError:
-        print("(storage not implemented yet - running in memory)")
-        store = Store()
+        store = storage.load_data(DATA_FILE)
+    except ValueError as exc:
+        # R9 rule 5: stop here, so the damaged files are not saved over
+        print("Error:", exc)
+        raise SystemExit(1)
     return seed_demo_data(store)
 
 
