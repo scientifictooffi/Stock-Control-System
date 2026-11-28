@@ -1,0 +1,28 @@
+# Category Partition specification for
+# stock_control/reporting/storage.py::save_data and load_data
+# (R9 Save and Back Up Data)
+# Run: TSLgenerator -s r9_save_load.tsl
+
+Parameters:
+  Function called:
+    save_data.                   [property save]
+    load_data.                   [property load]
+
+  Store given:
+    not a Store.                 [error]
+    empty Store.                 [single]
+    Store with data.             [if save]
+    none (load only).            [if load]
+
+Environments:
+  Data file:
+    missing.
+    saved earlier.
+    not valid JSON.
+    empty file.                  [single]
+    JSON but not saved data.     [single]
+
+  Backup file:
+    missing.
+    saved earlier.
+    damaged.                     [single]
